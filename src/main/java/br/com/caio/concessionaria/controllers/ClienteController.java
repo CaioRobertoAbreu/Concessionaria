@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -27,7 +28,7 @@ public class ClienteController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrarCliente(@RequestBody ClienteDto clienteDto){
+    public ResponseEntity<String> cadastrarCliente(@RequestBody @Valid ClienteDto clienteDto){
         Cliente cliente = clienteService.cadastrarCliente(clienteDto);
         URI uri = ServletUriComponentsBuilder.fromHttpUrl("http://localhost:8080/cliente")
                 .path("/{cpf}").buildAndExpand(cliente.getCpf()).toUri();
@@ -35,5 +36,5 @@ public class ClienteController {
         return ResponseEntity.created(uri).body("Cliente cadastrado com sucesso");
     }
 
-    //Todo atualizar cliente
+    //Todo Cliente não atualiza os dados, apenas endereco
 }

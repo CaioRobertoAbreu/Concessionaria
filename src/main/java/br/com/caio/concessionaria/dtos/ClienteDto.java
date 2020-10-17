@@ -2,15 +2,26 @@ package br.com.caio.concessionaria.dtos;
 
 import br.com.caio.concessionaria.models.Cliente;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class ClienteDto implements Serializable {
     private static final long serialVersionUID = -3201511360864408257L;
 
+    @NotBlank(message = "campo obrigatorio")
+    @Size(min = 11, max = 11)
     private String cpf;
+    @NotBlank(message = "Campo obrigatorio")
     private String nome;
+    @NotBlank(message = "obrigatorio")
+    //Todo fazer validacao
     private String dataNascimento;
+    @Valid
     private EnderecoDto endereco;
+    @NotBlank(message = "campo obrigatorio")
+    //Todo fazer validacao
     private String email;
 
     public ClienteDto(String cpf, String nome, String dataNascimento, EnderecoDto endereco, String email) {

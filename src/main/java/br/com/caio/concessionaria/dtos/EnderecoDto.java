@@ -3,15 +3,19 @@ package br.com.caio.concessionaria.dtos;
 import br.com.caio.concessionaria.models.Cidade;
 import br.com.caio.concessionaria.models.Endereco;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 public class EnderecoDto implements Serializable {
     private static final long serialVersionUID = 1443485043823642869L;
 
+    @NotBlank(message = "Informe logradouro")
     private String logradouro;
     private String numero;
     private String complemento;
+    @NotBlank(message = "Informe CEP")
     private String cep;
+    @NotBlank(message = "Informe o Id da cidade")
     private String cidadeId;
 
     public EnderecoDto(String logradouro, String numero, String complemento, String cep, String cidadeId) {

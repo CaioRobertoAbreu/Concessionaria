@@ -2,6 +2,7 @@ package br.com.caio.concessionaria.service;
 
 import br.com.caio.concessionaria.dtos.ClienteDto;
 import br.com.caio.concessionaria.models.Cliente;
+import br.com.caio.concessionaria.models.Endereco;
 import br.com.caio.concessionaria.repository.ClienteRepository;
 import br.com.caio.concessionaria.repository.EnderecoRepository;
 import br.com.caio.concessionaria.service.exception.ObjectExistException;
@@ -16,14 +17,17 @@ public class ClienteService {
     private final ClienteRepository clienteRepository;
     private final EnderecoRepository enderecoRepository;
     private final CidadeService cidadeService;
+    private final EnderecoService enderecoService;
 
     public ClienteService(ClienteRepository clienteRepository,
                           EnderecoRepository enderecoRepository,
-                          CidadeService cidadeService) {
+                          CidadeService cidadeService,
+                          EnderecoService enderecoService) {
 
         this.clienteRepository = clienteRepository;
         this.enderecoRepository = enderecoRepository;
         this.cidadeService = cidadeService;
+        this.enderecoService = enderecoService;
     }
 
     public Cliente buscarCliente(String cpf) {
