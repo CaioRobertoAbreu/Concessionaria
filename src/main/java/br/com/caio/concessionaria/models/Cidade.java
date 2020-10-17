@@ -2,8 +2,6 @@ package br.com.caio.concessionaria.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,29 +9,26 @@ public class Cidade implements Serializable {
     private static final long serialVersionUID = 1792117309755936317L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
     private String nome;
-    private String estado;
-    @OneToMany(mappedBy = "cidade")
-    private List<Endereco> endereco = new ArrayList<>();
+    private String uf;
 
 
     public Cidade() {
 
     }
 
-    public Cidade(Integer id, String nome, String estado) {
+    public Cidade(String id, String nome, String uf) {
         this.id = id;
         this.nome = nome;
-        this.estado = estado;
+        this.uf = uf;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -45,21 +40,14 @@ public class Cidade implements Serializable {
         this.nome = nome;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getUf() {
+        return uf;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setUf(String estado) {
+        this.uf = estado;
     }
 
-    public List<Endereco> getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(List<Endereco> endereco) {
-        this.endereco = endereco;
-    }
 
     @Override
     public boolean equals(Object o) {

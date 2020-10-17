@@ -23,12 +23,13 @@ public class Endereco implements Serializable {
 
     }
 
-    public Endereco(Integer id, String logradouro, String numero, String complemento, String cep) {
+    public Endereco(Integer id, String logradouro, String numero, String complemento, String cep, Cidade cidade) {
         this.id = id;
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
         this.cep = cep;
+        this.cidade = cidade;
     }
 
 
@@ -92,4 +93,5 @@ public class Endereco implements Serializable {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
 }

@@ -9,11 +9,9 @@ public class Cliente implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String cpf;
     private String nome;
     private String dataNascimento;
-    private String cpf;
     @ManyToOne
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
@@ -28,20 +26,12 @@ public class Cliente implements Serializable {
 
     }
 
-    public Cliente(Long id, String nome, String dataNascimento, String cpf, String email) {
-        this.id = id;
+    public Cliente(String cpf, String nome, String dataNascimento, Endereco endereco, String email) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.cpf = cpf;
+        this.endereco = endereco;
         this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -105,11 +95,12 @@ public class Cliente implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cliente cliente = (Cliente) o;
-        return getId().equals(cliente.getId());
+        return getCpf().equals(cliente.getCpf());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(getCpf());
     }
+
 }

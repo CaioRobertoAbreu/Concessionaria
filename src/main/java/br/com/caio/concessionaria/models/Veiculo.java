@@ -11,38 +11,31 @@ import java.util.Objects;
 public class Veiculo implements Serializable {
     private static final long serialVersionUID = 1812040767627402700L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     @JsonIgnore
-    private Cliente proprietario; //Todo fazer mapeamento
+    private Cliente proprietario;
+    @Id
     private String placa;
     private String anoVeiculo;
     private String modelo;
     private BigDecimal preco;
-    //Todo private StatusSolicitacaoVeiculo statusVenda;
+    @OneToOne
+    @JoinColumn(name = "status_venda_id")
+    private StatusSolicitacaoVenda statusVenda;
 
     public Veiculo() {
 
     }
 
-    public Veiculo(Long id, Cliente proprietario, String placa, String anoVeiculo, String modelo, BigDecimal preco) {
-        this.id = id;
+    public Veiculo(Cliente proprietario, String placa, String anoVeiculo, String modelo,
+                   BigDecimal preco, StatusSolicitacaoVenda statusVenda) {
         this.proprietario = proprietario;
         this.placa = placa;
         this.anoVeiculo = anoVeiculo;
         this.modelo = modelo;
         this.preco = preco;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.statusVenda = statusVenda;
     }
 
     public Cliente getProprietario() {
@@ -90,11 +83,11 @@ public class Veiculo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Veiculo veiculo = (Veiculo) o;
-        return getId().equals(veiculo.getId());
+        return getPlaca().equals(veiculo.getPlaca());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(getPlaca());
     }
 }
