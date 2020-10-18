@@ -36,5 +36,5 @@ public class ClienteController {
         return ResponseEntity.created(uri).body("Cliente cadastrado com sucesso");
     }
 
-    //Todo Cliente não atualiza os dados, apenas endereco
+    //Todo Cliente não atualiza os dados, apenas endereco. Falta inserir telefones
 }

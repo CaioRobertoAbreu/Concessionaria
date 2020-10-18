@@ -2,13 +2,12 @@ package br.com.caio.concessionaria.models;
 
 public enum Status {
 
-    PRE_APROVADO(100, "Veículo pré-aprovado para venda"),
+    AGENDAMENTO_NAO_REALIZADO(100, "Veiculo aguardando agendamento pelo usuario"),
     EM_AGENDAMANENTO(200, "Inspeção agendada"),
-    APROVADO(300, "Veículo aprovado para venda"),
-    RECUSADO(400, "Veículo não aprovado para venda"),
-    ENTREGA_DOCUMENTACAO_AGENDADA(500, "Agendamento de entrega de documentacao"),
-    VENDA_REALIZADA(600, "Venda realizada para concessionária"),
-    DESISTENCIA(700, "Desistência de venda");
+    RECUSADO(300, "Lamentamos, mas não temos interesse pela compra deste veiculo"),
+    ENTREGA_DOCUMENTACAO_AGENDADA(400, "Agendamento de entrega de documentacao realizada"),
+    VENDA_REALIZADA(500, "Parabéns! A venda de seu veiculo foi realizada"),
+    DESISTENCIA(600, "Desistência de venda");
 
     private Integer codigo;
     private String descricao;

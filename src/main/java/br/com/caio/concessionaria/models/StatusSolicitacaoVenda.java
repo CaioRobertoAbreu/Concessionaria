@@ -15,10 +15,10 @@ public class StatusSolicitacaoVenda implements Serializable {
     private static final long serialVersionUID = -5160132141596615599L;
 
     @Id
-    private Long id;
+    private String id;
     private LocalDateTime dataAtualização;
     private Integer codigoStatus;
-    private String mensagemMotivoStatus;
+    private String mensagem;
     @MapsId
     @OneToOne(mappedBy = "statusVenda")
     @JsonIgnore
@@ -28,20 +28,20 @@ public class StatusSolicitacaoVenda implements Serializable {
 
     }
 
-    public StatusSolicitacaoVenda(Long id, LocalDateTime dataAtualização, Status codigoStatus,
-                                  String mensagemMotivoStatus, Veiculo veiculo) {
+    public StatusSolicitacaoVenda(String id, Status codigoStatus, String mensagem,
+                                  Veiculo veiculo) {
         this.id = id;
-        this.dataAtualização = dataAtualização;
+        this.dataAtualização = LocalDateTime.now();
         this.codigoStatus = codigoStatus.getCodigo();
-        this.mensagemMotivoStatus = mensagemMotivoStatus;
+        this.mensagem = codigoStatus.getDescricao();
         this.veiculo = veiculo;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,12 +61,12 @@ public class StatusSolicitacaoVenda implements Serializable {
         this.codigoStatus = status;
     }
 
-    public String getMensagemMotivoStatus() {
-        return mensagemMotivoStatus;
+    public String getMensagem() {
+        return mensagem;
     }
 
-    public void setMensagemMotivoStatus(String mensagemMotivoStatus) {
-        this.mensagemMotivoStatus = mensagemMotivoStatus;
+    public void setMensagem(Status statusCodigo) {
+        this.mensagem = statusCodigo.getDescricao();
     }
 
     public Veiculo getVeiculo() {

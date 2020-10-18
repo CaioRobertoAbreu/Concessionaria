@@ -1,3 +1,5 @@
+-- Há inserts inseridos no final
+
 Insert into Cidade (Id, Nome, Uf) values ('3500105','Adamantina', 'SP');
 Insert into Cidade (Id, Nome, Uf) values ('3500204','Adolfo', 'SP');
 Insert into Cidade (Id, Nome, Uf) values ('3500303','Aguaí', 'SP');
@@ -643,3 +645,12 @@ Insert into Cidade (Id, Nome, Uf) values ('3557105','Votuporanga', 'SP');
 Insert into Cidade (Id, Nome, Uf) values ('3557154','Zacarias', 'SP');
 Insert into Cidade (Id, Nome, Uf) values ('3557204','Chavantes', 'SP');
 Insert into Cidade (Id, Nome, Uf) values ('3557303','Estiva Gerbi', 'SP');
+
+insert into Endereco(logradouro, numero, cep, cidade_id)
+values ( 'Rua das Cassias', '123', '11345123', '3541000' );
+
+insert into Cliente (cpf, nome, data_Nascimento, endereco_id, email)
+values ( '12345678910', 'Caio Abreu','13/04/1997', 1, 'caio3015');
+
+insert into Telefone (cliente_cpf, telefone)
+values ('12345678910', '13673289076');

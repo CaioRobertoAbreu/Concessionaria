@@ -18,7 +18,7 @@ public class Cliente implements Serializable {
     private String email;
     @ElementCollection
     @CollectionTable(name = "telefone")
-    private Set<String> telefone = new HashSet<>();
+    private Set<String> telefones = new HashSet<>();
     @OneToMany(mappedBy = "proprietario")
     private List<Veiculo> veiculos = new ArrayList<>();
 
@@ -66,12 +66,12 @@ public class Cliente implements Serializable {
         this.email = email;
     }
 
-    public Set<String> getTelefone() {
-        return telefone;
+    public Set<String> getTelefones() {
+        return telefones;
     }
 
-    public void setTelefone(Set<String> telefone) {
-        this.telefone = telefone;
+    public void setTelefones(Set<String> telefones) {
+        this.telefones = telefones;
     }
 
     public Endereco getEndereco() {

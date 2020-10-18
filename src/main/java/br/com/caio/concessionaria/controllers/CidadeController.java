@@ -1,6 +1,5 @@
 package br.com.caio.concessionaria.controllers;
 
-import br.com.caio.concessionaria.dtos.CidadeDtoResponse;
 import br.com.caio.concessionaria.models.Cidade;
 import br.com.caio.concessionaria.service.CidadeService;
 import org.springframework.data.domain.Page;
@@ -30,15 +29,14 @@ public class CidadeController {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<CidadeDtoResponse>> buscarTodasCidadesPorPaginacao(
+    public ResponseEntity<Page<Cidade>> buscarTodasCidadesPorPaginacao(
             @RequestParam(defaultValue = "0") Integer pagina,
             @RequestParam(defaultValue = "25") Integer elementosPorPagina) {
 
         Page<Cidade> cidades = cidadeService.buscarTodasCidadesPorPaginacao(pagina, elementosPorPagina);
 
-        Page<CidadeDtoResponse> cidadeDtoResponse = cidades.map(CidadeDtoResponse::new);
 
-        return ResponseEntity.ok().body(cidadeDtoResponse);
+        return ResponseEntity.ok().body(cidades);
 
     }
 }

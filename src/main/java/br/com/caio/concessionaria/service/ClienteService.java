@@ -15,19 +15,16 @@ import java.util.Optional;
 public class ClienteService {
 
     private final ClienteRepository clienteRepository;
-    private final EnderecoRepository enderecoRepository;
-    private final CidadeService cidadeService;
     private final EnderecoService enderecoService;
+    private final CidadeService cidadeService;
 
     public ClienteService(ClienteRepository clienteRepository,
-                          EnderecoRepository enderecoRepository,
-                          CidadeService cidadeService,
-                          EnderecoService enderecoService) {
+                          EnderecoService enderecoService,
+                          CidadeService cidadeService) {
 
         this.clienteRepository = clienteRepository;
-        this.enderecoRepository = enderecoRepository;
-        this.cidadeService = cidadeService;
         this.enderecoService = enderecoService;
+        this.cidadeService = cidadeService;
     }
 
     public Cliente buscarCliente(String cpf) {
@@ -50,7 +47,7 @@ public class ClienteService {
 
         Cliente cliente = ClienteDto.toCliente(clienteDto);
 
-        enderecoRepository.save(cliente.getEndereco());
+        enderecoService.salvarEndereco(cliente.getEndereco());
         return clienteRepository.save(cliente);
 
     }
