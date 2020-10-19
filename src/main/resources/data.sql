@@ -652,5 +652,5 @@ values ( 'Rua das Cassias', '123', '11345123', '3541000' );
 insert into Cliente (cpf, nome, data_Nascimento, endereco_id, email)
 values ( '12345678910', 'Caio Abreu','13/04/1997', 1, 'caio3015');
 
-insert into Telefone (cliente_cpf, telefone)
+insert into Telefone (cliente_cpf, telefones)
 values ('12345678910', '13673289076');

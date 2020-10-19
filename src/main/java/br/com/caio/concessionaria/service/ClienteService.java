@@ -1,10 +1,9 @@
 package br.com.caio.concessionaria.service;
 
 import br.com.caio.concessionaria.dtos.ClienteDto;
+import br.com.caio.concessionaria.dtos.ClienteDtoAtualizacao;
 import br.com.caio.concessionaria.models.Cliente;
-import br.com.caio.concessionaria.models.Endereco;
 import br.com.caio.concessionaria.repository.ClienteRepository;
-import br.com.caio.concessionaria.repository.EnderecoRepository;
 import br.com.caio.concessionaria.service.exception.ObjectExistException;
 import br.com.caio.concessionaria.service.exception.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
@@ -32,17 +31,17 @@ public class ClienteService {
         return cliente.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado."));
     }
 
-    private void verifcaClienteCadastradoNoSistema(String cpf){
-
-        boolean existe = clienteRepository.existsById(cpf);
-
-        if(existe) {
-            throw new ObjectExistException("Este CPF já consta cadastrado no sistema");
-        }
+    public boolean verificaClienteCadastradoNoSistema(String cpf) {
+        return clienteRepository.existsById(cpf);
     }
 
+
     public Cliente cadastrarCliente(ClienteDto clienteDto){
-        verifcaClienteCadastradoNoSistema(clienteDto.getCpf());
+
+        if (verificaClienteCadastradoNoSistema(clienteDto.getCpf())){
+            throw new ObjectExistException("Este CPF já consta cadastrado no sistema");
+        }
+
         cidadeService.VerificaCidadeExistente(clienteDto.getEndereco().getCidadeId());
 
         Cliente cliente = ClienteDto.toCliente(clienteDto);
@@ -53,4 +52,38 @@ public class ClienteService {
     }
 
 
+    public void atualizaCliente(ClienteDtoAtualizacao clienteDto, String cpf) {
+        if(!verificaClienteCadastradoNoSistema(cpf)) {
+            throw new ObjectExistException("Cliente não encontrado");
+        }
+
+        Cliente cliente = ClienteDtoAtualizacao.toCliente(clienteDto, cpf);
+
+        efetuarAtualizacao(cliente);
+    }
+
+    private void efetuarAtualizacao(Cliente cliente) {
+        Optional<Cliente> clienteOptional = clienteRepository.findById(cliente.getCpf());
+
+        Cliente clienteAtualizado = new Cliente();
+
+        if(clienteOptional.orElse(null) != null) {
+
+            clienteAtualizado = clienteOptional.get();
+
+            if(cliente.getEndereco() != null) {
+                clienteAtualizado.setEndereco(cliente.getEndereco());
+            }
+
+            if(cliente.getEmail() != null) {
+                clienteAtualizado.setEmail(cliente.getEmail());
+            }
+
+            if(cliente.getTelefones() != null) {
+                clienteAtualizado.setTelefones(cliente.getTelefones());
+            }
+        }
+
+        clienteRepository.save(clienteAtualizado);
+    }
 }

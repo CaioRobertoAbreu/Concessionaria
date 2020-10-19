@@ -1,5 +1,6 @@
 package br.com.caio.concessionaria.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ public class StatusSolicitacaoVenda implements Serializable {
 
     @Id
     private String id;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataAtualização;
     private Integer codigoStatus;
     private String mensagem;
@@ -28,12 +30,11 @@ public class StatusSolicitacaoVenda implements Serializable {
 
     }
 
-    public StatusSolicitacaoVenda(String id, Status codigoStatus, String mensagem,
-                                  Veiculo veiculo) {
+    public StatusSolicitacaoVenda(String id, Status status, Veiculo veiculo) {
         this.id = id;
         this.dataAtualização = LocalDateTime.now();
-        this.codigoStatus = codigoStatus.getCodigo();
-        this.mensagem = codigoStatus.getDescricao();
+        this.codigoStatus = status.getCodigo();
+        this.mensagem = status.getDescricao();
         this.veiculo = veiculo;
     }
 
@@ -53,20 +54,17 @@ public class StatusSolicitacaoVenda implements Serializable {
         this.dataAtualização = dataAtualização;
     }
 
-    public Status getCodigoStatus() {
-        return Status.toEnum(codigoStatus);
+    public Integer getCodigoStatus() {
+        return codigoStatus;
     }
 
-    public void setCodigoStatus(Integer status) {
-        this.codigoStatus = status;
+    public void setCodigoStatusEMensagem(Integer statusCodigo) {
+        this.codigoStatus = statusCodigo;
+        this.mensagem = Status.toEnum(statusCodigo).getDescricao();
     }
 
     public String getMensagem() {
         return mensagem;
-    }
-
-    public void setMensagem(Status statusCodigo) {
-        this.mensagem = statusCodigo.getDescricao();
     }
 
     public Veiculo getVeiculo() {

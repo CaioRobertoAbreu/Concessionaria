@@ -9,14 +9,16 @@ import java.io.Serializable;
 public class EnderecoDto implements Serializable {
     private static final long serialVersionUID = 1443485043823642869L;
 
+    //Todo Efetuar validacoes
+
     @NotBlank(message = "Informe logradouro")
-    private String logradouro;
-    private String numero;
-    private String complemento;
+    private final String logradouro;
+    private final String numero;
+    private final String complemento;
     @NotBlank(message = "Informe CEP")
-    private String cep;
+    private final String cep;
     @NotBlank(message = "Informe o Id da cidade")
-    private String cidadeId;
+    private final String cidadeId;
 
     public EnderecoDto(String logradouro, String numero, String complemento, String cep, String cidadeId) {
         this.logradouro = logradouro;
@@ -30,40 +32,20 @@ public class EnderecoDto implements Serializable {
         return logradouro;
     }
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
     public String getNumero() {
         return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
     }
 
     public String getComplemento() {
         return complemento;
     }
 
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
     public String getCep() {
         return cep;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
     public String getCidadeId() {
         return cidadeId;
-    }
-
-    public void setCidadeId(String cidadeId) {
-        this.cidadeId = cidadeId;
     }
 
     public static Endereco toEndereco(EnderecoDto enderecoDto){
@@ -72,4 +54,5 @@ public class EnderecoDto implements Serializable {
         return new Endereco(null, enderecoDto.getLogradouro(), enderecoDto.getNumero(),
                 enderecoDto.getComplemento(), enderecoDto.getCep(), cidade);
     }
+
 }

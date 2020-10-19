@@ -6,27 +6,28 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 public class ClienteDto implements Serializable {
     private static final long serialVersionUID = -3201511360864408257L;
 
+    //Todo fazer validacoes
+
     @NotBlank(message = "campo obrigatorio")
     @Length(min = 11, max = 11)
-    private String cpf;
+    private final String cpf;
     @NotBlank(message = "Campo obrigatorio")
-    private String nome;
+    private final String nome;
     @NotBlank(message = "obrigatorio")
     //Todo fazer validacao
-    private String dataNascimento;
+    private final String dataNascimento;
     @Valid
-    private EnderecoDto endereco;
+    private final EnderecoDto endereco;
     @NotBlank(message = "campo obrigatorio")
     //Todo fazer validacao
-    private String email;
-    private Set<String> telefones = new HashSet<>();
+    private final String email;
+    private final Set<String> telefones = new HashSet<>();
 
     public ClienteDto(String cpf, String nome, String dataNascimento, EnderecoDto endereco, String email) {
         this.cpf = cpf;
@@ -40,49 +41,31 @@ public class ClienteDto implements Serializable {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public String getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
 
     public EnderecoDto getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(EnderecoDto endereco) {
-        this.endereco = endereco;
-    }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public Set<String> getTelefones() {
         return telefones;
     }
 
-    public void setTelefones(Set<String> telefones) {
-        this.telefones = telefones;
-    }
 
     public static Cliente toCliente(ClienteDto clienteDto){
 

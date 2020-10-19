@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -12,14 +11,13 @@ public class Veiculo implements Serializable {
     private static final long serialVersionUID = 1812040767627402700L;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id")
+    @JoinColumn(name = "cliente_cpf")
     @JsonIgnore
     private Cliente proprietario;
     @Id
     private String placa;
-    private String anoVeiculo;
+    private Integer anoVeiculo;
     private String modelo;
-    private BigDecimal preco;
     @OneToOne
     @JoinColumn(name = "status_venda_id")
     private StatusSolicitacaoVenda statusVenda;
@@ -28,14 +26,11 @@ public class Veiculo implements Serializable {
 
     }
 
-    public Veiculo(Cliente proprietario, String placa, String anoVeiculo, String modelo,
-                   BigDecimal preco, StatusSolicitacaoVenda statusVenda) {
+    public Veiculo(Cliente proprietario, String placa, Integer anoVeiculo, String modelo) {
         this.proprietario = proprietario;
-        this.placa = placa;
+        this.placa = placa.toUpperCase();
         this.anoVeiculo = anoVeiculo;
         this.modelo = modelo;
-        this.preco = preco;
-        this.statusVenda = statusVenda;
     }
 
     public Cliente getProprietario() {
@@ -51,14 +46,14 @@ public class Veiculo implements Serializable {
     }
 
     public void setPlaca(String placa) {
-        this.placa = placa;
+        this.placa = placa.toUpperCase();
     }
 
-    public String getAnoVeiculo() {
+    public Integer getAnoVeiculo() {
         return anoVeiculo;
     }
 
-    public void setAnoVeiculo(String anoVeiculo) {
+    public void setAnoVeiculo(Integer anoVeiculo) {
         this.anoVeiculo = anoVeiculo;
     }
 
@@ -70,12 +65,12 @@ public class Veiculo implements Serializable {
         this.modelo = modelo;
     }
 
-    public BigDecimal getPreco() {
-        return preco;
+    public StatusSolicitacaoVenda getStatusVenda() {
+        return statusVenda;
     }
 
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
+    public void setStatusVenda(StatusSolicitacaoVenda statusVenda) {
+        this.statusVenda = statusVenda;
     }
 
     @Override

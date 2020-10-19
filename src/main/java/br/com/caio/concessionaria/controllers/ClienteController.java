@@ -1,6 +1,7 @@
 package br.com.caio.concessionaria.controllers;
 
 import br.com.caio.concessionaria.dtos.ClienteDto;
+import br.com.caio.concessionaria.dtos.ClienteDtoAtualizacao;
 import br.com.caio.concessionaria.models.Cliente;
 import br.com.caio.concessionaria.service.ClienteService;
 import org.springframework.http.ResponseEntity;
@@ -36,5 +37,11 @@ public class ClienteController {
         return ResponseEntity.created(uri).body("Cliente cadastrado com sucesso");
     }
 
-    //Todo Cliente não atualiza os dados, apenas endereco. Falta inserir telefones
+    @PatchMapping("/atualizar/{cpf}")
+    public ResponseEntity<Cliente> atualizarCliente(@PathVariable String cpf,
+                                                   @RequestBody ClienteDtoAtualizacao clienteDto){
+        clienteService.atualizaCliente(clienteDto, cpf);
+
+        return ResponseEntity.noContent().build();
+    }
 }
