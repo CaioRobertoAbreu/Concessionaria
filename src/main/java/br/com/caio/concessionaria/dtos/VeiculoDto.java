@@ -44,7 +44,7 @@ public class VeiculoDto implements Serializable {
         Cliente cliente = new Cliente();
         cliente.setCpf(veiculoDto.getCpfProprietario());
 
-        Veiculo veiculo = new Veiculo(cliente, veiculoDto.getPlaca(), veiculoDto.getAnoVeiculo(),
+        Veiculo veiculo = new Veiculo(cliente, veiculoDto.getPlaca().toUpperCase(), veiculoDto.getAnoVeiculo(),
                 veiculoDto.getModelo());
 
         StatusSolicitacaoVenda status = new StatusSolicitacaoVenda(null, Status.AGENDAMENTO_NAO_REALIZADO,

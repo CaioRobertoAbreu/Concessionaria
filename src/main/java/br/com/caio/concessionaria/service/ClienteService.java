@@ -31,18 +31,14 @@ public class ClienteService {
         return cliente.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado."));
     }
 
-    public boolean verificaClienteCadastradoNoSistema(String cpf) {
-        return clienteRepository.existsById(cpf);
-    }
-
 
     public Cliente cadastrarCliente(ClienteDto clienteDto){
 
-        if (verificaClienteCadastradoNoSistema(clienteDto.getCpf())){
+        if (clienteRepository.existsById(clienteDto.getCpf())){
             throw new ObjectExistException("Este CPF já consta cadastrado no sistema");
         }
 
-        cidadeService.VerificaCidadeExistente(clienteDto.getEndereco().getCidadeId());
+        cidadeService.VerificaCidadeInexistente(clienteDto.getEndereco().getCidadeId());
 
         Cliente cliente = ClienteDto.toCliente(clienteDto);
 
@@ -53,7 +49,7 @@ public class ClienteService {
 
 
     public void atualizaCliente(ClienteDtoAtualizacao clienteDto, String cpf) {
-        if(!verificaClienteCadastradoNoSistema(cpf)) {
+        if(!clienteRepository.existsById(cpf)) {
             throw new ObjectExistException("Cliente não encontrado");
         }
 
@@ -61,6 +57,7 @@ public class ClienteService {
 
         efetuarAtualizacao(cliente);
     }
+
 
     private void efetuarAtualizacao(Cliente cliente) {
         Optional<Cliente> clienteOptional = clienteRepository.findById(cliente.getCpf());
@@ -83,7 +80,11 @@ public class ClienteService {
                 clienteAtualizado.setTelefones(cliente.getTelefones());
             }
         }
-
         clienteRepository.save(clienteAtualizado);
+    }
+
+
+    public boolean verificaClienteCadastradoNoSistema(String cpfCliente) {
+        return clienteRepository.existsById(cpfCliente);
     }
 }

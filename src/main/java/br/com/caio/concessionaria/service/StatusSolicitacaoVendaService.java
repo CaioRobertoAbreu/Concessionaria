@@ -13,7 +13,7 @@ public class StatusSolicitacaoVendaService {
         this.statusSolicitacaoVendaRepository = statusSolicitacaoVendaRepository;
     }
 
-    public StatusSolicitacaoVenda salvarStatus(StatusSolicitacaoVenda status) {
-        return statusSolicitacaoVendaRepository.save(status);
+    public void salvarStatus(StatusSolicitacaoVenda status) {
+        statusSolicitacaoVendaRepository.save(status);
     }
 }

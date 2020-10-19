@@ -20,7 +20,6 @@ public class CidadeService {
 
 
     public List<Cidade> buscarTodasCidades() {
-
         return  cidadeRepository.findAll();
     }
 
@@ -31,7 +30,7 @@ public class CidadeService {
         return cidadeRepository.findAll(cidadesPaginadas);
     }
 
-    public void VerificaCidadeExistente(String id){
+    public void VerificaCidadeInexistente(String id){
         if(!cidadeRepository.existsById(id)){
             throw new ObjectNotFoundException("Não existe cidade com este codigo");
         }

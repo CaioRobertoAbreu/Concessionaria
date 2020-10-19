@@ -7,8 +7,6 @@ import br.com.caio.concessionaria.service.exception.ObjectExistException;
 import br.com.caio.concessionaria.service.exception.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,7 +27,7 @@ public class VeiculoService {
 
 
     public Veiculo buscaVeiculoCadastrado(String cpf, String placa){
-        lancaExcecaoParaClienteInexistente(cpf.toUpperCase());
+        lancaExcecaoParaClienteInexistente(cpf);
 
         Optional<Veiculo> veiculo = veiculoRepository.findById(placa);
 
@@ -42,17 +40,14 @@ public class VeiculoService {
         Veiculo veiculo = VeiculoDto.toVeiculo(veiculoDto);
         lancaExcecaoParaClienteInexistente(veiculoDto.getCpfProprietario());
 
-        if(!consultaVeiculoCadastradoNoSistema(veiculo.getPlaca())){
+        if(!veiculoRepository.existsById(veiculo.getPlaca())){
             statusSolicitacaoVendaService.salvarStatus(veiculo.getStatusVenda());
             return veiculoRepository.save(veiculo);
         }
 
-        throw new ObjectExistException("Já existe um veículo cadastro com esta placa. Placa:" + veiculo.getPlaca());
+        throw new ObjectExistException("Já existe um veículo cadastrado com esta placa. Placa:" + veiculo.getPlaca());
     }
 
-    private boolean consultaVeiculoCadastradoNoSistema(String placa) {
-        return veiculoRepository.existsById(placa.toUpperCase());
-    }
 
     private void lancaExcecaoParaClienteInexistente(String cpfCliente) {
         if(!clienteService.verificaClienteCadastradoNoSistema(cpfCliente)){
