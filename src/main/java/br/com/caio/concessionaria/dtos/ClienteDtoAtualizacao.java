@@ -2,7 +2,9 @@ package br.com.caio.concessionaria.dtos;
 
 import br.com.caio.concessionaria.models.Cliente;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,11 +12,9 @@ import java.util.Set;
 public class ClienteDtoAtualizacao implements Serializable {
     private static final long serialVersionUID = -3433624790325478531L;
 
-    //Todo fazer validacoes
-
     private final EnderecoDto enderecoDto;
+    @Email
     private final String email;
-    @NotBlank
     private final Set<String> telefones = new HashSet<>();
 
     public ClienteDtoAtualizacao(EnderecoDto enderecoDto, String email) {

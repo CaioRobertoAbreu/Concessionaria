@@ -6,6 +6,7 @@ import br.com.caio.concessionaria.models.Cliente;
 import br.com.caio.concessionaria.repository.ClienteRepository;
 import br.com.caio.concessionaria.service.exception.ObjectExistException;
 import br.com.caio.concessionaria.service.exception.ObjectNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -50,7 +51,7 @@ public class ClienteService {
 
     public void atualizaCliente(ClienteDtoAtualizacao clienteDto, String cpf) {
         if(!clienteRepository.existsById(cpf)) {
-            throw new ObjectExistException("Cliente não encontrado");
+            throw new ObjectNotFoundException("Cliente não encontrado");
         }
 
         Cliente cliente = ClienteDtoAtualizacao.toCliente(clienteDto, cpf);
@@ -60,9 +61,9 @@ public class ClienteService {
 
 
     private void efetuarAtualizacao(Cliente cliente) {
-        Optional<Cliente> clienteOptional = clienteRepository.findById(cliente.getCpf());
-
         Cliente clienteAtualizado = new Cliente();
+
+        Optional<Cliente> clienteOptional = clienteRepository.findById(cliente.getCpf());
 
         if(clienteOptional.orElse(null) != null) {
 
@@ -86,5 +87,15 @@ public class ClienteService {
 
     public boolean verificaClienteCadastradoNoSistema(String cpfCliente) {
         return clienteRepository.existsById(cpfCliente);
+    }
+
+    public void deletarCliente(String cpf) {
+        Cliente cliente = buscarCliente(cpf);
+
+        try {
+            clienteRepository.delete(cliente);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("Não é possível excluir cliente com veículo cadastrado");
+        }
     }
 }

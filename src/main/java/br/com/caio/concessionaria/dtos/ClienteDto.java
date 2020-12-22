@@ -1,31 +1,31 @@
 package br.com.caio.concessionaria.dtos;
 
 import br.com.caio.concessionaria.models.Cliente;
-import org.hibernate.validator.constraints.Length;
+import br.com.caio.concessionaria.service.validation.DataNascimento;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+@DataNascimento
 public class ClienteDto implements Serializable {
     private static final long serialVersionUID = -3201511360864408257L;
 
-    //Todo fazer validacoes
-
-    @NotBlank(message = "campo obrigatorio")
-    @Length(min = 11, max = 11)
+    @NotEmpty(message = "campo obrigatorio")
+    @CPF
     private final String cpf;
-    @NotBlank(message = "Campo obrigatorio")
+    @NotEmpty(message = "Campo obrigatorio")
     private final String nome;
-    @NotBlank(message = "obrigatorio")
-    //Todo fazer validacao
+    @NotEmpty(message = "obrigatorio")
     private final String dataNascimento;
     @Valid
     private final EnderecoDto endereco;
-    @NotBlank(message = "campo obrigatorio")
-    //Todo fazer validacao
+    @NotEmpty(message = "campo obrigatorio")
+    @Email(message = "E-mail inválido")
     private final String email;
     private final Set<String> telefones = new HashSet<>();
 

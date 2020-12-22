@@ -1,5 +1,6 @@
 package br.com.caio.concessionaria.controllers;
 
+import br.com.caio.concessionaria.dtos.VeiculoDeleteDto;
 import br.com.caio.concessionaria.dtos.VeiculoDto;
 import br.com.caio.concessionaria.models.Veiculo;
 import br.com.caio.concessionaria.service.VeiculoService;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -28,7 +30,7 @@ public class VeiculoController {
     }
 
     @PostMapping("/cadastrar")
-    public ResponseEntity<String> cadastrarVeiculo(@RequestBody VeiculoDto veiculoDto) {
+    public ResponseEntity<String> cadastrarVeiculo(@RequestBody @Valid VeiculoDto veiculoDto) {
 
         Veiculo veiculo = veiculoService.cadastrarVeiculo(veiculoDto);
         URI uri = ServletUriComponentsBuilder.fromHttpUrl("http://localhost:8080/veiculo/" +
@@ -36,5 +38,22 @@ public class VeiculoController {
                 .buildAndExpand(veiculoDto.getPlaca()).toUri();
 
         return ResponseEntity.created(uri).body("Veiculo cadastrado");
+    }
+
+    @PatchMapping("/atualizar")
+    public ResponseEntity<String> atualizarVeiculo(@RequestBody @Valid VeiculoDto veiculoDto) {
+
+        veiculoService.atualizarVeiculo(veiculoDto);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    //TODO deletar veiculo
+
+    @DeleteMapping("/deletar")
+    public ResponseEntity<Veiculo> deletarVeiculo(@RequestBody VeiculoDeleteDto veiculo) {
+        veiculoService.deletarVeiculo(veiculo);
+
+        return ResponseEntity.noContent().build();
     }
 }

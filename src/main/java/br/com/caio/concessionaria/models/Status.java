@@ -5,8 +5,8 @@ public enum Status {
     AGENDAMENTO_NAO_REALIZADO(100, "Veiculo aguardando agendamento pelo usuario"),
     EM_AGENDAMANENTO(200, "Inspeção agendada"),
     RECUSADO(300, "Lamentamos, mas não temos interesse pela compra deste veiculo"),
-    ENTREGA_DOCUMENTACAO_AGENDADA(400, "Agendamento de entrega de documentacao realizada"),
-    VENDA_REALIZADA(500, "Parabéns! A venda de seu veiculo foi realizada"),
+    ENTREGA_DOCUMENTACAO_AGENDADA(400, "Entrega de documentação agendada"),
+    COMPRA_REALIZADA(500, "Parabéns! Compramos o seu veículo"),
     DESISTENCIA(600, "Desistência de venda");
 
     private Integer codigo;

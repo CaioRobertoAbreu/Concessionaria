@@ -10,6 +10,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
+
 @SpringBootApplication
 public class ConcessionariaApplication implements CommandLineRunner {
 
@@ -27,6 +29,7 @@ public class ConcessionariaApplication implements CommandLineRunner {
 
 
     public static void main(String[] args) {
+
         SpringApplication.run(ConcessionariaApplication.class, args);
     }
 

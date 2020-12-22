@@ -45,5 +45,13 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/deletar/{cpf}")
+    public ResponseEntity<?> deletarCliente(@PathVariable String cpf){
+
+        clienteService.deletarCliente(cpf);
+
+        return ResponseEntity.ok().build();
+    }
+
     //Todo fazer controller para agendamento
 }

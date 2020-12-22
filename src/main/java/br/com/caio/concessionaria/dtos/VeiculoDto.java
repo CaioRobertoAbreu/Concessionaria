@@ -4,17 +4,23 @@ import br.com.caio.concessionaria.models.Cliente;
 import br.com.caio.concessionaria.models.Status;
 import br.com.caio.concessionaria.models.StatusSolicitacaoVenda;
 import br.com.caio.concessionaria.models.Veiculo;
+import br.com.caio.concessionaria.service.validation.AnoVeiculo;
+import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@AnoVeiculo
 public class VeiculoDto implements Serializable {
     private static final long serialVersionUID = -8708745828774011463L;
 
-    //Todo fazer validacoes
-
+    @CPF(message = "CPF inválido")
+    @NotEmpty(message = "preenchimento obrigatório")
     private final String cpfProprietario;
+    @NotEmpty(message = "preenchimento obrigatório")
     private final String placa;
     private final Integer anoVeiculo;
+    @NotEmpty(message = "preenchimento obrigatorio")
     private final String modelo;
 
     public VeiculoDto(String cpfProprietario, String placa, Integer anoVeiculo, String modelo) {

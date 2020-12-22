@@ -18,7 +18,7 @@ public class Veiculo implements Serializable {
     private String placa;
     private Integer anoVeiculo;
     private String modelo;
-    @OneToOne
+    @OneToOne()
     @JoinColumn(name = "status_venda_id")
     private StatusSolicitacaoVenda statusVenda;
 
